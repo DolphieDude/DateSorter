@@ -37,24 +37,17 @@ public class DateSorter {
             boolean doesContainRx = x.getMonth().toString().contains("R");
             boolean doesContainRy = y.getMonth().toString().contains("R");
 
-            if(doesContainRx) {
-                if(doesContainRy) {
-                    if(x.isBefore(y)) {
-                        cmp = X_BEFORE;
-                    }
-                    else {
-                        cmp = X_AFTER;
-                    }
-                }
-                else {
-                    cmp = X_BEFORE;
-                }
+            if (doesContainRx && doesContainRy) {
+                cmp = x.compareTo(y); // IMPROVED
+                                      // Knowing that LocaleDate implements ChronoLocalDate, which is Comparable.
+                                      // LocaleDate class has overridden compareTo().
             }
-            else if(doesContainRy || x.isBefore(y)) {
-                cmp = X_AFTER;
+            else if (!doesContainRx && !doesContainRy) {
+                cmp = -x.compareTo(y);
             }
             else {
-                cmp = X_BEFORE;
+                if (doesContainRx) cmp = X_BEFORE;
+                else cmp = X_AFTER;
             }
             return cmp;
         };
