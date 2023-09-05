@@ -1,8 +1,5 @@
 import java.time.LocalDate;
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * Marking will be based upon producing a readable, well engineered solution rather than factors
@@ -30,7 +27,7 @@ public class DateSorter {
      * @return the collection of dates now sorted as per the spec
      */
     public Collection<LocalDate> sortDates(List<LocalDate> unsortedDates) {
-        List<LocalDate> result = new ArrayList<>(unsortedDates); //not deep copy, elements inside are referenced
+        ArrayList<LocalDate> result = new ArrayList<>(unsortedDates); //not deep copy, elements inside are referenced
         Comparator<LocalDate> lambdaCompare = (x, y) -> {
             int cmp;
             boolean doesContainRx = x.getMonth().toString().contains("r");
