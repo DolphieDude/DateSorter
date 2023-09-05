@@ -30,13 +30,28 @@ public class DateSorter {
      * @return the collection of dates now sorted as per the spec
      */
     public Collection<LocalDate> sortDates(List<LocalDate> unsortedDates) {
-        List<LocalDate> result = new ArrayList<>();
-        Collections.copy(result, unsortedDates);
+        List<LocalDate> result = new ArrayList<>(unsortedDates); //not deep copy, elements inside are referenced
         Comparator<LocalDate> lambdaCompare = (x, y) -> {
-            return -1;
+            int cmp;
+            boolean doesContainRx = x.getMonth().toString().contains("r");
+            boolean doesContainRy = x.getMonth().toString().contains("r");
+            if(doesContainRx) {
+                if(!doesContainRy || y.isBefore(x)) {
+                    cmp = -1;
+                }
+                else {
+                    cmp = 1;
+                }
+            }
+            else if(!y.isBefore(x)) {
+                cmp = -1;
+            }
+            else {
+                cmp = 1;
+            }
+            return cmp;
         };
         result.sort(lambdaCompare);
         return result;
-    }
     }
 }
