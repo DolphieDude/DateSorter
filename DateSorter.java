@@ -54,7 +54,7 @@ public class DateSorter {
                 cmp = X_AFTER;
             }
             else {
-                cmp = X_AFTER;
+                cmp = X_BEFORE;
             }
             return cmp;
         };
