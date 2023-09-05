@@ -28,26 +28,37 @@ public class DateSorter {
      */
     public Collection<LocalDate> sortDates(List<LocalDate> unsortedDates) {
         ArrayList<LocalDate> result = new ArrayList<>(unsortedDates); //not deep copy, elements inside are referenced
+
         Comparator<LocalDate> lambdaCompare = (x, y) -> {
+            final int X_BEFORE = -1;
+            final int X_AFTER = 1;
+
             int cmp;
-            boolean doesContainRx = x.getMonth().toString().contains("r");
-            boolean doesContainRy = x.getMonth().toString().contains("r");
+            boolean doesContainRx = x.getMonth().toString().contains("R");
+            boolean doesContainRy = y.getMonth().toString().contains("R");
+
             if(doesContainRx) {
-                if(!doesContainRy || y.isBefore(x)) {
-                    cmp = -1;
+                if(doesContainRy) {
+                    if(x.isBefore(y)) {
+                        cmp = X_BEFORE;
+                    }
+                    else {
+                        cmp = X_AFTER;
+                    }
                 }
                 else {
-                    cmp = 1;
+                    cmp = X_BEFORE;
                 }
             }
-            else if(!y.isBefore(x)) {
-                cmp = -1;
+            else if(doesContainRy || x.isBefore(y)) {
+                cmp = X_AFTER;
             }
             else {
-                cmp = 1;
+                cmp = X_AFTER;
             }
             return cmp;
         };
+
         result.sort(lambdaCompare);
         return result;
     }
