@@ -1,8 +1,8 @@
-package sample;
-
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * Marking will be based upon producing a readable, well engineered solution rather than factors
@@ -30,6 +30,17 @@ public class DateSorter {
      * @return the collection of dates now sorted as per the spec
      */
     public Collection<LocalDate> sortDates(List<LocalDate> unsortedDates) {
-        // your solution here
+        Predicate<List<LocalDate>> swap = (x) -> {
+            return true;
+        };
+        List<LocalDate> result = new ArrayList<LocalDate>();
+        Collections.copy(result, unsortedDates);
+        for (int i = 0; i < unsortedDates.size() - 1; i++) {
+            boolean isSwapped = false;
+            for (int j = 0; j < unsortedDates.size() - i - 1; j++) {
+                //comparing and then swapping
+            }
+        }
+        return result;
     }
 }
