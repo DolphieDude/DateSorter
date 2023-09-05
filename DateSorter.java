@@ -30,17 +30,13 @@ public class DateSorter {
      * @return the collection of dates now sorted as per the spec
      */
     public Collection<LocalDate> sortDates(List<LocalDate> unsortedDates) {
-        Predicate<List<LocalDate>> swap = (x) -> {
-            return true;
-        };
-        List<LocalDate> result = new ArrayList<LocalDate>();
+        List<LocalDate> result = new ArrayList<>();
         Collections.copy(result, unsortedDates);
-        for (int i = 0; i < unsortedDates.size() - 1; i++) {
-            boolean isSwapped = false;
-            for (int j = 0; j < unsortedDates.size() - i - 1; j++) {
-                //comparing and then swapping
-            }
-        }
+        Comparator<LocalDate> lambdaCompare = (x, y) -> {
+            return -1;
+        };
+        result.sort(lambdaCompare);
         return result;
+    }
     }
 }
