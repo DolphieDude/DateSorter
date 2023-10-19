@@ -7,6 +7,7 @@ public class DateSorterTest {
         List<LocalDate> unsortedDates, expected;
         DateSorter dateSorter1 = new DateSorter();
         DateSorterSecond dateSorter2 = new DateSorterSecond();
+        DateSorterThird dateSorter3 = new DateSorterThird();
 
         unsortedDates = Arrays.asList(
                 LocalDate.parse("2005-07-01"),
@@ -30,6 +31,14 @@ public class DateSorterTest {
         }
 
         actual = dateSorter2.sortDates(unsortedDates);
+        System.out.println(actual);
+        if (actual.equals(expected)) {
+            System.out.println("Test passed");
+        } else {
+            System.out.println("Test failed");
+        }
+
+        actual = dateSorter3.sortDates(unsortedDates);
         System.out.println(actual);
         if (actual.equals(expected)) {
             System.out.println("Test passed");
