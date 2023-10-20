@@ -26,6 +26,7 @@ public class DateSorterSecond {
      * @param unsortedDates - an unsorted list of dates
      * @return the collection of dates now sorted as per the spec
      */
+
     public Collection<LocalDate> sortDates(List<LocalDate> unsortedDates) {
         ArrayList<LocalDate> result = new ArrayList<>(unsortedDates); //not deep copy, elements inside are referenced
         ArrayList<LocalDate> withoutR = new ArrayList<>();
