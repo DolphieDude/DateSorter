@@ -38,8 +38,11 @@ public class DateSorterThird {
     private final char character;
 
     public DateSorterThird() {
-        this.dateTimeFormatter = DEFAULT_DATE_TIME_FORMATTER;
-        this.character = DEFAULT_CHARACTER;
+        this(DEFAULT_DATE_TIME_FORMATTER);
+    }
+
+    public DateSorterThird(DateTimeFormatter dateTimeFormatter) {
+        this(dateTimeFormatter, DEFAULT_CHARACTER);
     }
 
     public DateSorterThird(DateTimeFormatter dateTimeFormatter, char character) {
@@ -49,7 +52,7 @@ public class DateSorterThird {
 
     public Collection<LocalDate> sortDates(List<LocalDate> unsortedDates) {
         if (unsortedDates == null) {
-            throw new IllegalArgumentException("List<LocalDate> unsortedDates must not be null");
+            throw new IllegalArgumentException("unsortedDates must not be null");
         }
         if (unsortedDates.size() < 2) {
             return unsortedDates;
@@ -62,30 +65,30 @@ public class DateSorterThird {
 
     private int compareDatesDependingOnCharacter(LocalDate thisDate, LocalDate nextDate) {
         if (thisDate == null) {
-            throw new IllegalArgumentException("LocalDate thisDate must not be null");
+            throw new IllegalArgumentException("thisDate must not be null");
         }
         if (nextDate == null) {
-            throw new IllegalArgumentException("LocalDate nextDate must not be null");
+            throw new IllegalArgumentException("nextDate must not be null");
         }
 
-        boolean doesThisContainR = checkIfMonthContainsCharacter(thisDate);
-        boolean doesNextContainR = checkIfMonthContainsCharacter(nextDate);
+        boolean doesThisContainCharacter = containsCharacter(thisDate);
+        boolean doesNextContainCharacter = containsCharacter(nextDate);
 
-        if (doesThisContainR && doesNextContainR) {
+        if (doesThisContainCharacter && doesNextContainCharacter) {
             return thisDate.compareTo(nextDate);
         }
-        if (!doesThisContainR && !doesNextContainR) {
+        if (!doesThisContainCharacter && !doesNextContainCharacter) {
             return nextDate.compareTo(thisDate);
         }
 
-        return Boolean.compare(doesNextContainR, doesThisContainR);
+        return Boolean.compare(doesNextContainCharacter, doesThisContainCharacter);
     }
 
-    private String getMonthName(LocalDate localDate) {
+    private String formatDate(LocalDate localDate) {
         return this.dateTimeFormatter.format(localDate);
     }
 
-    private boolean checkIfMonthContainsCharacter(LocalDate localDate) {
-        return getMonthName(localDate).contains(String.valueOf(this.character));
+    private boolean containsCharacter(LocalDate localDate) {
+        return formatDate(localDate).contains(String.valueOf(this.character));
     }
 }
